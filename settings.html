@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top"><div><h1>School Settings</h1><div class="muted">Customize school and report information.</div></div></div>
+<form method="post" class="card"><div class="form-grid">
+<div class="field"><label>School Name</label><input name="school_name" value="{{school.school_name}}"></div>
+<div class="field"><label>Phone</label><input name="phone" value="{{school.phone}}"></div>
+<div class="field"><label>Email</label><input name="email" value="{{school.email}}"></div>
+<div class="field"><label>Pass Mark</label><input type="number" name="pass_mark" min="0" max="100" value="{{school.pass_mark}}"></div>
+<div class="field full"><label>Address</label><textarea name="address">{{school.address}}</textarea></div>
+<div class="field"><label>Teacher Name</label><input name="teacher_name" value="{{school.teacher_name}}"></div>
+<div class="field"><label>Principal Name</label><input name="principal_name" value="{{school.principal_name}}"></div>
+</div><div class="actions"><button class="btn green">Save Settings</button></div></form>
+{% endblock %}

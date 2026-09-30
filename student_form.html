@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top"><div><h1>{{"Edit Student" if student else "Add Student"}}</h1><div class="muted">Enter student information and subjects.</div></div></div>
+<form method="post" class="card">
+<div class="form-grid">
+<div class="field"><label>Student ID</label><input required name="student_id" value="{{student.student_id if student else ''}}"></div>
+<div class="field"><label>Name</label><input required name="name" value="{{student.name if student else ''}}"></div>
+<div class="field"><label>Class / Grade</label><input name="class_name" value="{{student.class_name if student else ''}}"></div>
+<div class="field"><label>Academic Year</label><input name="academic_year" value="{{student.academic_year if student else ''}}"></div>
+<div class="field"><label>Term</label><select name="term">{% for t in ['Term 1','Term 2','Term 3','Semester 1','Semester 2'] %}<option {% if student and student.term==t %}selected{% endif %}>{{t}}</option>{% endfor %}</select></div>
+<div class="full"><h2>Subjects</h2><div id="subjects">
+{% set rows = student.subjects if student else [{'name':'','mark':''}] %}
+{% for s in rows %}<div class="subject-row"><div class="field"><label>Subject</label><input name="subject_name" value="{{s.name}}"></div><div class="field"><label>Mark %</label><input type="number" min="0" max="100" step="0.01" name="subject_mark" value="{{s.mark}}"></div><div class="grade-preview muted">{{s.grade if s.grade else ''}}</div><button type="button" class="btn red" onclick="this.parentElement.remove()">X</button></div>{% endfor %}
+</div><button type="button" class="btn secondary" onclick="addSubject()">+ Add Subject</button></div>
+</div><div class="actions"><button class="btn green" type="submit">Save Student</button><a class="btn secondary" href="{{url_for('students')}}">Cancel</a>{% if student %}<form></form>{% endif %}</div>
+</form>
+<script>
+function addSubject(){const box=document.getElementById('subjects');box.insertAdjacentHTML('beforeend',`<div class="subject-row"><div class="field"><label>Subject</label><input name="subject_name"></div><div class="field"><label>Mark %</label><input type="number" min="0" max="100" step="0.01" name="subject_mark"></div><div class="grade-preview muted"></div><button type="button" class="btn red" onclick="this.parentElement.remove()">X</button></div>`)}
+</script>
+{% endblock %}

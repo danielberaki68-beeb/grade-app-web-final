@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top"><div><h1>Custom Grade System</h1><div class="muted">Set your own percentage limits and grade labels.</div></div></div>
+<form method="post" class="card"><div class="table-wrap"><table><tr><th>Minimum %</th><th>Grade</th><th>Description</th></tr>
+{% for g in grades %}<tr><td><input name="min_mark" type="number" min="0" max="100" step="0.01" value="{{g.min_mark}}"></td><td><input name="label" value="{{g.label}}"></td><td><input name="description" value="{{g.description}}"></td></tr>{% endfor %}
+</table></div><div class="actions"><button class="btn green">Save Grade System</button><button class="btn secondary" formaction="{{url_for('reset_grades')}}" formmethod="post">Restore Defaults</button></div></form>
+{% endblock %}

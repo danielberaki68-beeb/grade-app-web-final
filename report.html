@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top"><div><h1>Student Report</h1><div class="muted">{{student.name}} • {{student.student_id}}</div></div><a class="btn" href="{{url_for('report_pdf',student_pk=student.id)}}">Download PDF</a></div>
+<div class="card"><h2>{{settings.school_name}}</h2><p>{{settings.address}}</p><p><b>Student:</b> {{student.name}} &nbsp; <b>ID:</b> {{student.student_id}}</p><p><b>Class:</b> {{student.class_name}} &nbsp; <b>Term:</b> {{student.term}}</p>
+<div class="table-wrap"><table><tr><th>Subject</th><th>Mark</th><th>Grade</th></tr>{% for s in student.subjects %}<tr><td>{{s.name}}</td><td>{{"%.2f"|format(s.mark)}}%</td><td class="grade">{{s.grade}}</td></tr>{% endfor %}<tr><th>Average</th><th>{{"%.2f"|format(student.average)}}%</th><th>{{student.overall_grade}}</th></tr></table></div></div>
+{% endblock %}

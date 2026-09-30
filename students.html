@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top"><div><h1>Students</h1><div class="muted">Search, edit, report and manage students.</div></div><a class="btn" href="{{url_for('new_student')}}">+ Add Student</a></div>
+<form class="actions" method="get"><input style="flex:1;min-width:240px;background:#0a1627;border:1px solid #294361;color:#fff;border-radius:10px;padding:12px" name="q" value="{{q}}" placeholder="Search name or Student ID"><button class="btn">Search</button></form>
+<div class="card"><div class="table-wrap"><table><tr><th>ID</th><th>Name</th><th>Class</th><th>Term</th><th>Average</th><th>Grade</th><th>Actions</th></tr>
+{% for s in students %}<tr><td>{{s.student_id}}</td><td>{{s.name}}</td><td>{{s.class_name}}</td><td>{{s.term}}</td><td>{{"%.2f"|format(s.average)}}%</td><td class="grade">{{s.overall_grade}}</td><td><a class="btn secondary" href="{{url_for('edit_student',student_pk=s.id)}}">Edit</a> <a class="btn orange" href="{{url_for('report',student_pk=s.id)}}">Report</a></td></tr>{% else %}<tr><td colspan="7">No students found.</td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}

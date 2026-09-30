@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top"><div><h1>Dashboard</h1><div class="muted">Students • marks • custom grading • reports • AI</div></div></div>
+<div class="grid">
+  <div class="card"><div class="muted">Students</div><div class="stat">{{ students|length }}</div></div>
+  <div class="card"><div class="muted">Average</div><div class="stat">{{ average }}%</div></div>
+  <div class="card"><div class="muted">Grade System</div><div class="stat">{{ get_grades_count if get_grades_count else "Custom" }}</div></div>
+  <div class="card"><div class="muted">AI Assistant</div><div class="stat">Ready</div></div>
+</div>
+<div class="actions">
+<a class="btn" href="{{ url_for('new_student') }}">+ Add Student</a>
+<a class="btn secondary" href="{{ url_for('students') }}">View Students</a>
+<a class="btn orange" href="{{ url_for('grades') }}">Grade System</a>
+<a class="btn secondary" href="{{ url_for('settings_page') }}">School Settings</a>
+</div>
+<div class="card"><h2>Recent Students</h2>
+<div class="table-wrap"><table><tr><th>ID</th><th>Name</th><th>Class</th><th>Average</th><th>Grade</th></tr>
+{% for s in students[:8] %}<tr><td>{{s.student_id}}</td><td>{{s.name}}</td><td>{{s.class_name}}</td><td>{{"%.2f"|format(s.average)}}%</td><td class="grade">{{s.overall_grade}}</td></tr>{% else %}<tr><td colspan="5" class="muted">No students yet.</td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}
